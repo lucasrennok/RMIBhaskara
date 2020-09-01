@@ -18,8 +18,12 @@ import java.rmi.registry.Registry;
 //There are implemented functions at BhaskaraServant that it uses
 public class ApplicationServer {
     public static void main(String [] args) throws RemoteException{
+        int PORT = 5099;
+        
         //The server will host at localhost:5099
-        Registry registry = LocateRegistry.createRegistry(5099);
+        Registry registry = LocateRegistry.createRegistry(PORT);
+        
+        System.out.println("Starting Server on localhost:"+PORT+"...");
         
         //It will bind 'bhaskara' route to send responses of BhaskaraServant functions
         // so: localhost:5099/bhaskara
