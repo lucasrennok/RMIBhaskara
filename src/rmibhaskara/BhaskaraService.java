@@ -7,14 +7,21 @@ package rmibhaskara;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 
 /**
  *
- * @author User
+ * @author lucas
  */
+
+//Interface of the Servant 
 public interface BhaskaraService extends Remote{
     
+    //Print function
     public String echo(String input) throws RemoteException;
     
+    //Bhaskara function
+    public ArrayList bhaskara(float a, float b, float c) throws RemoteException;
+
 }
