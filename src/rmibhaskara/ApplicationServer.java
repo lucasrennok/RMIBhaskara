@@ -11,7 +11,7 @@ import java.rmi.registry.Registry;
 
 /**
  *
- * @author lucas
+ * @author lucasrennok
  */
 
 //Server will wait someone request and will send a response for that

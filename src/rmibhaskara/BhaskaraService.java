@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author lucas
+ * @author lucasrennok
  */
 
 //Interface of the Servant 

@@ -1,2 +1,7 @@
-# Project paths at private
-/nbproject/private
+# Build output
+/build/
+
+# NetBeans
+/nbproject/private/
+/dist/
+*.class

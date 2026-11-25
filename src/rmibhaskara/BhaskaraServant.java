@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author lucas
+ * @author lucasrennok
  */
 
 //Implemented functions from BhaskaraService | The server can use them

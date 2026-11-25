@@ -1,48 +1,68 @@
 # :cyclone: RMI Bhaskara
-> lucasrennok
 
-This code was made to Distributed Systems Subject.
+Exemplo de **Java RMI** (Remote Method Invocation) feito para a matéria de
+Sistemas Distribuídos: o cliente envia os coeficientes `a`, `b` e `c` de uma
+equação do 2º grau e o servidor devolve as raízes `x'` e `x''` calculadas pela
+fórmula de Bhaskara.
 
-![executing](/readme_imgs/executing.gif)
+![executando](readme_imgs/executing.gif)
 
-The RMI was made in Java with **NetBeans 8.2**. To test it I created a method that receives variables a, b and c from Client and use Bhaskara Formula to get the results x' and x'' and send them in a ArrayList as a response.
+## :package: Como funciona
 
-## :star: Code
+O projeto tem quatro classes, no pacote `rmibhaskara`:
 
-#### :anger: ApplicationServer.java
-This is the server, it will wait for a request and send a response based on methods implemented at BhaskaraServant.java
+| Classe | Papel |
+| --- | --- |
+| `BhaskaraService.java` | **Interface** remota: declara os métodos que o cliente pode chamar (`echo` e `bhaskara`). |
+| `BhaskaraServant.java` | **Implementação** desses métodos (é onde a fórmula de Bhaskara roda). |
+| `ApplicationServer.java` | **Servidor**: cria o registro RMI em `localhost:5099` e publica o serviço na rota `bhaskara`. |
+| `Client.java` | **Cliente**: procura o serviço e chama os métodos. |
 
-![Server](/readme_imgs/Server.PNG)
+## :rocket: Como rodar
 
-#### :anger: BhaskaraServant.java
-There are the implemented functions declared at BhaskaraService.java
+Precisa só do **JDK** (8 ou mais novo). Não é necessário um `rmiregistry`
+separado — o próprio servidor cria o registro.
 
-Bhaskara method is implemented on it:
+### Pela linha de comando
 
-![Bhaskara](/readme_imgs/BhaskaraMethod.PNG)
+Na pasta `src/`:
 
-##### :exclamation: Implemented Methods
+```sh
+# 1. Compilar
+javac rmibhaskara/*.java
 
-1. echo(String input), this function receives input and returns "From server: " + input
-2. bhaskara(float a, float b, float c), this function receives a, b and c and returns an ArrayList that contains x' and x'' found with Bhaskara Formula
+# 2. Iniciar o servidor (deixe este terminal aberto)
+java rmibhaskara.ApplicationServer
 
-**:question: Bhaskara Formula:**
+# 3. Em outro terminal, rodar o cliente
+java rmibhaskara.Client
+```
 
-![Bhaskara Formula](https://images.educamaisbrasil.com.br/content/banco_de_imagens/guia-de-estudo/D/formula-bhaskara-matematica.jpg)
+O servidor mostra os valores recebidos e as raízes; o cliente imprime a
+resposta que veio do servidor.
 
-#### :anger: BhaskaraService.java
-This is the interface that shows to the Client the methods which it can call. And the methods that will be implemented at BhaskaraServant.java.
+### Pelo NetBeans
 
-![Service](/readme_imgs/BhaskaraService.PNG)
+O projeto já vem com os arquivos do NetBeans. Abra a pasta como projeto, rode
+`ApplicationServer` (Run File) e depois `Client` (Run File).
 
-#### :anger: Client.java
-This is the client, it can call the functions that are in BhaskaraService.java and the server will return a response.
+## :pencil2: Trocar os valores de a, b e c
 
-![Client](/readme_imgs/Client.PNG)
+Os coeficientes estão fixos no `Client.java`:
 
-### :punch: Want to use it?
+```java
+float a = 2;
+float b = -16;
+float c = -18;
+```
 
-- Make a fork
-- I recommend to download NetBeans to use :eyes:
+Edite esses valores e rode o cliente de novo. (Uma boa evolução seria lê-los
+da linha de comando via `args`.)
 
-Enjoy it, :smiley:
+## :warning: Observações
+
+- O servidor escuta em `localhost:5099`; para acessar de outra máquina, troque
+  `localhost` pelo IP do servidor no `Client.java` e libere a porta.
+- Este é um exemplo didático de RMI — não tem tratamento para `a = 0` (que não
+  é equação do 2º grau) nem para raízes complexas (quando `b² - 4ac < 0`, o
+  resultado vem como `NaN`).
